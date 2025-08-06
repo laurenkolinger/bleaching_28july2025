@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Data folder
+data/
+
+# R specific
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
