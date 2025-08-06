@@ -9,6 +9,7 @@ Thumbs.db
 
 # Data folder
 data/
+aug52025/
 
 # R specific
 .Rproj.user
