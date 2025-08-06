@@ -17,7 +17,10 @@ library(corrplot)     # Correlation matrix visualization
 library(gridExtra)    # Multiple plot arrangement
 library(viridis)      # Perceptually uniform color scales
 library(scales)       # Scale functions for plots
+<<<<<<< HEAD
 library(tidyverse)
+=======
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 
 cat("============================================================================\n")
 cat("CORAL BLEACHING DATA LOADING AND INITIAL ANALYSIS\n")
@@ -149,7 +152,11 @@ calculate_site_means <- function(data, group_vars = c("site", "year", "period"))
     group_by(across(all_of(group_vars))) %>%
     summarise(across(where(is.numeric), ~ mean(.x, na.rm = TRUE)), .groups = "drop") %>%
     # Remove rows where key variables are NaN (no valid replicates)
+<<<<<<< HEAD
     # filter(!is.nan(ext_anybleaching))
+=======
+    filter(!is.nan(ext_anybleaching))
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   
   return(result)
 }
@@ -184,9 +191,15 @@ key_timepoints <- c("2023_Annual", "2024_PBL", "2024_Annual", "2025_PBL")
 timepoint_availability <- extent_means %>%
   filter(
     (year == 2023 & period == "Annual") |
+<<<<<<< HEAD
       (year == 2024 & period == "PBL") |
       (year == 2024 & period == "Annual") |
       (year == 2025 & period == "PBL")
+=======
+    (year == 2024 & period == "PBL") |
+    (year == 2024 & period == "Annual") |
+    (year == 2025 & period == "PBL")
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   ) %>%
   mutate(timepoint = paste(year, period, sep = "_")) %>%
   group_by(timepoint) %>%
@@ -206,9 +219,15 @@ print(timepoint_availability)
 complete_sites <- extent_means %>%
   filter(
     (year == 2023 & period == "Annual") |
+<<<<<<< HEAD
       (year == 2024 & period == "PBL") |
       (year == 2024 & period == "Annual") |
       (year == 2025 & period == "PBL")
+=======
+    (year == 2024 & period == "PBL") |
+    (year == 2024 & period == "Annual") |
+    (year == 2025 & period == "PBL")
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   ) %>%
   mutate(timepoint = paste(year, period, sep = "_")) %>%
   group_by(site) %>%
@@ -233,9 +252,15 @@ cat("These sites will form our core analysis dataset.\n")
 timepoint_data <- extent_means %>%
   filter(
     (year == 2023 & period == "Annual") |
+<<<<<<< HEAD
       (year == 2024 & period == "PBL") |
       (year == 2024 & period == "Annual") |
       (year == 2025 & period == "PBL")
+=======
+    (year == 2024 & period == "PBL") |
+    (year == 2024 & period == "Annual") |
+    (year == 2025 & period == "PBL")
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   ) %>%
   mutate(
     timepoint = paste(year, period, sep = "_"),
@@ -423,7 +448,11 @@ site_variability_plot <- site_variability %>%
     ),
     variability_category = factor(variability_category, 
                                   levels = c("Low Variability", "Moderate Variability", 
+<<<<<<< HEAD
                                              "High Variability", "Extreme Variability"))
+=======
+                                            "High Variability", "Extreme Variability"))
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   )
 
 p4 <- ggplot(site_variability_plot, aes(x = mean_bleaching, y = cv_bleaching, color = variability_category)) +
@@ -459,11 +488,19 @@ write_csv(mortality_means, "01_mortality_site_means.csv")
 thresholds_data <- data.frame(
   category = c("minimal", "moderate", "high", "severe"),
   upper_threshold = c(bleaching_severity_thresholds$minimal,
+<<<<<<< HEAD
                       bleaching_severity_thresholds$moderate,
                       bleaching_severity_thresholds$high, 
                       bleaching_severity_thresholds$severe),
   description = c("0-25th percentile", "25th-50th percentile", 
                   "50th-75th percentile", "75th-100th percentile")
+=======
+                     bleaching_severity_thresholds$moderate,
+                     bleaching_severity_thresholds$high, 
+                     bleaching_severity_thresholds$severe),
+  description = c("0-25th percentile", "25th-50th percentile", 
+                 "50th-75th percentile", "75th-100th percentile")
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 )
 write_csv(thresholds_data, "01_severity_thresholds.csv")
 

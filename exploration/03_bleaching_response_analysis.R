@@ -41,6 +41,7 @@ if(file.exists("01_extent_site_means.csv")) {
   cat("Loaded extent site means from Step 01\n")
 } else {
   stop("Required file 01_extent_site_means.csv not found. Run script 01 first.")
+<<<<<<< HEAD
 }
 
 # Load prevalence and mortality data for comprehensive analysis
@@ -226,6 +227,193 @@ calculate_response_metrics <- function(initial_bleaching, final_bleaching) {
   ))
 }
 
+=======
+}
+
+# Load prevalence and mortality data for comprehensive analysis
+if(file.exists("01_prevalence_site_means.csv")) {
+  prevalence_means <- read_csv("01_prevalence_site_means.csv")
+  cat("Loaded prevalence site means from Step 01\n")
+} else {
+  cat("Warning: Prevalence data not found\n")
+  prevalence_means <- NULL
+}
+
+if(file.exists("01_mortality_site_means.csv")) {
+  mortality_means <- read_csv("01_mortality_site_means.csv")
+  cat("Loaded mortality site means from Step 01\n")
+} else {
+  cat("Warning: Mortality data not found\n")
+  mortality_means <- NULL
+}
+
+# Load thermal stress metrics
+if(file.exists("02_comprehensive_thermal_data.csv")) {
+  thermal_data <- read_csv("02_comprehensive_thermal_data.csv")
+  cat("Loaded comprehensive thermal data from Step 02\n")
+} else {
+  cat("Warning: Thermal data not found. Analysis will proceed without thermal context.\n")
+  thermal_data <- NULL
+}
+
+# Load thermal stress thresholds
+if(file.exists("02_thermal_stress_thresholds.csv")) {
+  thermal_thresholds <- read_csv("02_thermal_stress_thresholds.csv")
+  cat("Loaded thermal stress thresholds from Step 02\n")
+} else {
+  cat("Warning: Thermal thresholds not found\n")
+  thermal_thresholds <- NULL
+}
+
+cat(sprintf("Primary dataset dimensions: %d rows × %d columns\n", nrow(extent_means), ncol(extent_means)))
+
+# ============================================================================
+# KEY TIMEPOINT EXTRACTION AND VALIDATION
+# ============================================================================
+
+cat("\nSTEP 2: Extracting and validating key timepoints for response analysis\n")
+cat("----------------------------------------------------------------------\n")
+
+# Define the four critical timepoints for response analysis
+# Rationale: These timepoints capture two complete bleaching-recovery cycles:
+# Cycle 1: 2023 Annual (baseline) → 2024 PBL (post-2023 stress response)
+# Cycle 2: 2024 Annual (baseline) → 2025 PBL (post-2024 stress response)
+key_timepoints <- c("2023_Annual", "2024_PBL", "2024_Annual", "2025_PBL")
+
+# Extract data for key timepoints
+key_timepoint_data <- extent_means %>%
+  filter(
+    (year == 2023 & period == "Annual") |
+    (year == 2024 & period == "PBL") |
+    (year == 2024 & period == "Annual") |
+    (year == 2025 & period == "PBL")
+  ) %>%
+  mutate(
+    timepoint = paste(year, period, sep = "_"),
+    timepoint_ordered = factor(timepoint, levels = key_timepoints)
+  )
+
+# Validate data completeness for each timepoint
+timepoint_summary <- key_timepoint_data %>%
+  group_by(timepoint_ordered) %>%
+  summarise(
+    n_sites = n(),
+    mean_bleaching = mean(ext_anybleaching, na.rm = TRUE),
+    median_bleaching = median(ext_anybleaching, na.rm = TRUE),
+    sd_bleaching = sd(ext_anybleaching, na.rm = TRUE),
+    min_bleaching = min(ext_anybleaching, na.rm = TRUE),
+    max_bleaching = max(ext_anybleaching, na.rm = TRUE),
+    q25_bleaching = quantile(ext_anybleaching, 0.25, na.rm = TRUE),
+    q75_bleaching = quantile(ext_anybleaching, 0.75, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+cat("Timepoint data summary:\n")
+print(timepoint_summary)
+
+# Identify sites with complete temporal coverage
+sites_complete_coverage <- key_timepoint_data %>%
+  group_by(site) %>%
+  summarise(
+    timepoints_available = n(),
+    available_timepoints = paste(sort(unique(timepoint)), collapse = ", "),
+    .groups = "drop"
+  ) %>%
+  filter(timepoints_available == 4)
+
+cat(sprintf("\nSites with complete 4-timepoint coverage: %d\n", nrow(sites_complete_coverage)))
+cat("These sites will form the core dataset for response analysis.\n")
+
+# ============================================================================
+# VISUALIZATION 1: Temporal Bleaching Trajectories
+# ============================================================================
+
+# Create comprehensive trajectory visualization
+# Justification: Visual inspection of temporal patterns reveals the diversity
+# of coral responses and identifies sites with unusual trajectory patterns
+
+# Filter for sites with complete coverage
+complete_trajectory_data <- key_timepoint_data %>%
+  filter(site %in% sites_complete_coverage$site)
+
+p1 <- ggplot(complete_trajectory_data, aes(x = timepoint_ordered, y = ext_anybleaching)) +
+  # Individual site trajectories
+  geom_line(aes(group = site), alpha = 0.3, color = "steelblue") +
+  geom_point(aes(group = site), alpha = 0.5, size = 1.5, color = "darkblue") +
+  
+  # Summary statistics overlay
+  stat_summary(fun = mean, geom = "line", aes(group = 1), color = "red", size = 2) +
+  stat_summary(fun = mean, geom = "point", color = "red", size = 4) +
+  stat_summary(fun.data = mean_se, geom = "errorbar", color = "red", width = 0.1, size = 1) +
+  
+  # Add quartile bands
+  stat_summary(fun = function(x) quantile(x, 0.25, na.rm = TRUE), 
+               geom = "line", aes(group = 1), color = "orange", linetype = "dashed") +
+  stat_summary(fun = function(x) quantile(x, 0.75, na.rm = TRUE), 
+               geom = "line", aes(group = 1), color = "orange", linetype = "dashed") +
+  
+  scale_x_discrete(labels = c("2023\nAnnual", "2024\nPBL", "2024\nAnnual", "2025\nPBL")) +
+  labs(
+    title = "Coral Bleaching Extent Trajectories Across All Sites",
+    subtitle = "Individual site trajectories (blue) with mean ± SE (red) and quartiles (orange dashed)",
+    x = "Time Period",
+    y = "Bleaching Extent (%)",
+    caption = "This plot reveals the diversity of coral responses across time.\nEach blue line represents one site's trajectory through bleaching events.\nThe red line shows the mean response with error bars indicating uncertainty.\nOrange dashed lines mark the 25th and 75th percentiles, showing the range\nof typical responses. Divergent patterns may indicate differential resilience."
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(size = 11),
+    plot.caption = element_text(hjust = 0, size = 9, color = "gray30")
+  )
+
+ggsave("03_plot_temporal_trajectories.png", p1, width = 12, height = 8, dpi = 300)
+cat("\nSaved: 03_plot_temporal_trajectories.png\n")
+
+# ============================================================================
+# RESPONSE METRICS CALCULATION
+# ============================================================================
+
+cat("\nSTEP 3: Calculating comprehensive response and recovery metrics\n")
+cat("--------------------------------------------------------------\n")
+
+# Create comprehensive response metrics
+# Rationale: Multiple metrics capture different aspects of coral responses:
+# - Recovery magnitude: absolute change in bleaching extent
+# - Recovery efficiency: proportional change relative to initial condition
+# - Response direction: improvement vs. deterioration
+# - Response consistency: variability across response periods
+
+calculate_response_metrics <- function(initial_bleaching, final_bleaching) {
+  # Calculate various response metrics
+  # Rationale: Different metrics emphasize different aspects of recovery
+  
+  # Absolute change (negative = recovery, positive = worsening)
+  response_magnitude = final_bleaching - initial_bleaching
+  
+  # Recovery achieved (always positive, 0 = no recovery)
+  recovery_achieved = pmax(0, initial_bleaching - final_bleaching)
+  
+  # Proportional recovery (relative to initial condition)
+  recovery_proportion = ifelse(initial_bleaching > 0, 
+                              recovery_achieved / initial_bleaching, 
+                              0)
+  
+  # Persistence of bleaching (what remains after recovery)
+  persistence_rate = pmin(initial_bleaching, final_bleaching)
+  
+  # Worsening magnitude (positive if condition deteriorated)
+  worsening_achieved = pmax(0, final_bleaching - initial_bleaching)
+  
+  return(list(
+    response_magnitude = response_magnitude,
+    recovery_achieved = recovery_achieved,
+    recovery_proportion = recovery_proportion,
+    persistence_rate = persistence_rate,
+    worsening_achieved = worsening_achieved
+  ))
+}
+
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 # Process both response periods
 cat("Processing Period 1: 2023 Annual → 2024 PBL (post-2023 stress response)\n")
 
@@ -290,7 +478,11 @@ print(recovery_quartiles)
 
 # Response magnitude quartiles (includes both recovery and worsening)
 response_mag_quartiles <- quantile(combined_response_data$response_magnitude, 
+<<<<<<< HEAD
                                    probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+=======
+                                  probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 
 cat("\nResponse magnitude quartiles (negative = recovery, positive = worsening):\n")
 print(response_mag_quartiles)
@@ -337,6 +529,7 @@ combined_response_data <- combined_response_data %>%
     
     # Ordered factors for plotting
     recovery_category = factor(recovery_category, 
+<<<<<<< HEAD
                                levels = c("No Recovery", "Minimal Recovery", "Moderate Recovery", 
                                           "Strong Recovery", "Exceptional Recovery")),
     response_direction = factor(response_direction,
@@ -345,6 +538,16 @@ combined_response_data <- combined_response_data %>%
     recovery_efficiency = factor(recovery_efficiency,
                                  levels = c("No Recovery", "Low Efficiency", "Moderate Efficiency",
                                             "High Efficiency", "Very High Efficiency"))
+=======
+                              levels = c("No Recovery", "Minimal Recovery", "Moderate Recovery", 
+                                        "Strong Recovery", "Exceptional Recovery")),
+    response_direction = factor(response_direction,
+                               levels = c("Strong Worsening", "Moderate Worsening", "Stable",
+                                         "Moderate Recovery", "Strong Recovery")),
+    recovery_efficiency = factor(recovery_efficiency,
+                                levels = c("No Recovery", "Low Efficiency", "Moderate Efficiency",
+                                          "High Efficiency", "Very High Efficiency"))
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   )
 
 # Print category thresholds for documentation
@@ -366,8 +569,13 @@ cat(sprintf("  Exceptional: >%.1f%%\n", recovery_quartiles[4]))
 recovery_comparison_data <- combined_response_data %>%
   mutate(
     period_label = ifelse(period == "2023_to_2024_PBL", 
+<<<<<<< HEAD
                           "2023 Annual → 2024 PBL", 
                           "2024 Annual → 2025 PBL")
+=======
+                         "2023 Annual → 2024 PBL", 
+                         "2024 Annual → 2025 PBL")
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   )
 
 p2 <- ggplot(recovery_comparison_data, aes(x = period_label, y = recovery_achieved, fill = period_label)) +
@@ -489,7 +697,11 @@ print(trajectory_summary)
 # Justification: Reveals correlations, outliers, and different response strategies
 
 p4 <- ggplot(site_response_patterns, aes(x = recovery_achieved_p1, y = recovery_achieved_p2, 
+<<<<<<< HEAD
                                          color = pattern_classification)) +
+=======
+                                        color = pattern_classification)) +
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   geom_point(size = 3, alpha = 0.8) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray50") +
   geom_hline(yintercept = recovery_quartiles[2:4], linetype = "dotted", alpha = 0.5, color = "blue") +
@@ -548,7 +760,11 @@ if(!is.null(thermal_data)) {
   # or if other factors are more important for resilience
   
   p5 <- ggplot(response_thermal_data, aes(x = max_dhw_2024, y = recovery_achieved_p2, 
+<<<<<<< HEAD
                                           color = thermal_variability, size = cumulative_dhw)) +
+=======
+                                         color = thermal_variability, size = cumulative_dhw)) +
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
     geom_point(alpha = 0.7) +
     geom_smooth(method = "lm", se = TRUE, color = "red", linetype = "dashed", size = 1) +
     scale_color_viridis_c(name = "Temperature\nVariability\n(2-year sum)") +
@@ -568,8 +784,13 @@ if(!is.null(thermal_data)) {
   
   # Calculate correlation between thermal stress and recovery
   thermal_recovery_correlation <- cor(response_thermal_data$max_dhw_2024, 
+<<<<<<< HEAD
                                       response_thermal_data$recovery_achieved_p2, 
                                       use = "complete.obs")
+=======
+                                     response_thermal_data$recovery_achieved_p2, 
+                                     use = "complete.obs")
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   
   cat(sprintf("Correlation between 2024 DHW and 2024→2025 recovery: %.3f\n", thermal_recovery_correlation))
   
@@ -595,8 +816,13 @@ extreme_responders <- site_response_patterns %>%
     extreme_category = case_when(
       recovery_achieved_p2 > recovery_quartiles[4] ~ "Exceptional Recovery",
       worsening_achieved_p2 > quantile(combined_response_data$worsening_achieved, 0.9, na.rm = TRUE) ~ "Severe Worsening",
+<<<<<<< HEAD
       response_consistency < quantile(site_response_patterns$response_consistency, 0.1, na.rm = TRUE) ~ "Highly Consistent",
       response_consistency > quantile(site_response_patterns$response_consistency, 0.9, na.rm = TRUE) ~ "Highly Variable",
+=======
+      recovery_consistency < quantile(site_response_patterns$response_consistency, 0.1, na.rm = TRUE) ~ "Highly Consistent",
+      recovery_consistency > quantile(site_response_patterns$response_consistency, 0.9, na.rm = TRUE) ~ "Highly Variable",
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
       TRUE ~ "Typical Response"
     )
   ) %>%
@@ -648,9 +874,15 @@ response_thresholds_data <- data.frame(
                 response_mag_quartiles[2], 2, response_mag_quartiles[4]),
   percentile = c("25th", "50th", "75th", "100th", "25th", "~50th", "75th"),
   description = c("Minimal recovery threshold", "Moderate recovery threshold", 
+<<<<<<< HEAD
                   "Strong recovery threshold", "Maximum recovery observed",
                   "Strong recovery threshold", "Stability threshold (±2%)",
                   "Strong worsening threshold")
+=======
+                 "Strong recovery threshold", "Maximum recovery observed",
+                 "Strong recovery threshold", "Stability threshold (±2%)",
+                 "Strong worsening threshold")
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 )
 write_csv(response_thresholds_data, "03_response_category_thresholds.csv")
 

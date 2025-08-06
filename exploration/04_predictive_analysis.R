@@ -129,7 +129,11 @@ if(!is.null(thermal_data)) {
            max_weekly_temp, temp_range, weeks_with_dhw) %>%
     pivot_wider(names_from = year, 
                 values_from = c(max_dhw, temp_sd, total_dhw_accumulation, 
+<<<<<<< HEAD
                                 max_weekly_temp, temp_range, weeks_with_dhw),
+=======
+                               max_weekly_temp, temp_range, weeks_with_dhw),
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
                 names_sep = "_") %>%
     mutate(
       # Calculate additional thermal stress indices
@@ -164,26 +168,42 @@ cat("---------------------------------------------------------------------------
 
 # Previous year bleaching quartiles
 prev_bleaching_quartiles <- quantile(predictive_dataset$baseline_2023_annual, 
+<<<<<<< HEAD
                                      probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+=======
+                                    probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 cat("2023 Annual bleaching extent quartiles:\n")
 print(prev_bleaching_quartiles)
 
 if(!is.null(thermal_data)) {
   # DHW quartiles for 2024 (concurrent stress)
   dhw_2024_quartiles <- quantile(predictive_dataset$max_dhw_2024, 
+<<<<<<< HEAD
                                  probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+=======
+                                probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   cat("\n2024 Maximum DHW quartiles:\n")
   print(dhw_2024_quartiles)
   
   # DHW quartiles for 2023 (preceding stress)
   dhw_2023_quartiles <- quantile(predictive_dataset$max_dhw_2023, 
+<<<<<<< HEAD
                                  probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+=======
+                                probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   cat("\n2023 Maximum DHW quartiles:\n")
   print(dhw_2023_quartiles)
   
   # Temperature variability quartiles
   temp_var_quartiles <- quantile(predictive_dataset$thermal_variability, 
+<<<<<<< HEAD
                                  probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+=======
+                                probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   cat("\nThermal variability quartiles:\n")
   print(temp_var_quartiles)
 }
@@ -200,8 +220,13 @@ predictive_dataset <- predictive_dataset %>%
       TRUE ~ "Unknown"
     ),
     prev_bleaching_category = factor(prev_bleaching_category,
+<<<<<<< HEAD
                                      levels = c("Low Previous Impact", "Moderate Previous Impact",
                                                 "High Previous Impact", "Severe Previous Impact"))
+=======
+                                    levels = c("Low Previous Impact", "Moderate Previous Impact",
+                                              "High Previous Impact", "Severe Previous Impact"))
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   )
 
 if(!is.null(thermal_data)) {
@@ -216,8 +241,13 @@ if(!is.null(thermal_data)) {
         TRUE ~ "Unknown"
       ),
       dhw_2024_category = factor(dhw_2024_category,
+<<<<<<< HEAD
                                  levels = c("Low Current Stress", "Moderate Current Stress",
                                             "High Current Stress", "Extreme Current Stress")),
+=======
+                                levels = c("Low Current Stress", "Moderate Current Stress",
+                                          "High Current Stress", "Extreme Current Stress")),
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
       
       # Combined thermal stress categories
       thermal_variability_category = case_when(
@@ -228,8 +258,13 @@ if(!is.null(thermal_data)) {
         TRUE ~ "Unknown"
       ),
       thermal_variability_category = factor(thermal_variability_category,
+<<<<<<< HEAD
                                             levels = c("Low Variability", "Moderate Variability",
                                                        "High Variability", "Extreme Variability"))
+=======
+                                           levels = c("Low Variability", "Moderate Variability",
+                                                     "High Variability", "Extreme Variability"))
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
     )
 }
 
@@ -288,12 +323,17 @@ for(pred_name in names(predictor_vars)) {
     
     if(pred_var %in% names(predictive_dataset) && resp_var %in% names(predictive_dataset)) {
       corr_value <- cor(predictive_dataset[[pred_var]], predictive_dataset[[resp_var]], 
+<<<<<<< HEAD
                         use = "complete.obs")
+=======
+                       use = "complete.obs")
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
       
       # Calculate p-value for correlation
       corr_test <- cor.test(predictive_dataset[[pred_var]], predictive_dataset[[resp_var]])
       
       correlation_results <- rbind(correlation_results, 
+<<<<<<< HEAD
                                    data.frame(
                                      Predictor = pred_name,
                                      Response = resp_name,
@@ -303,6 +343,17 @@ for(pred_name in names(predictor_vars)) {
                                                    !is.na(predictive_dataset[[resp_var]])),
                                      Abs_Correlation = abs(corr_value)
                                    ))
+=======
+                                  data.frame(
+                                    Predictor = pred_name,
+                                    Response = resp_name,
+                                    Correlation = corr_value,
+                                    P_Value = corr_test$p.value,
+                                    N_Obs = sum(!is.na(predictive_dataset[[pred_var]]) & 
+                                               !is.na(predictive_dataset[[resp_var]])),
+                                    Abs_Correlation = abs(corr_value)
+                                  ))
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
     }
   }
 }
@@ -370,6 +421,7 @@ cat(sprintf("Primary response variable: %s\n", response_var))
 
 # Model 1: Previous year bleaching only
 model_prev_bleaching <- lm(recovery_2024_to_2025 ~ baseline_2023_annual, 
+<<<<<<< HEAD
                            data = predictive_dataset)
 
 # Model 2: Current year baseline only
@@ -379,6 +431,17 @@ model_current_baseline <- lm(recovery_2024_to_2025 ~ baseline_2024_annual,
 # Model 3: Previous recovery performance
 model_prev_recovery <- lm(recovery_2024_to_2025 ~ recovery_2023_to_2024, 
                           data = predictive_dataset)
+=======
+                          data = predictive_dataset)
+
+# Model 2: Current year baseline only
+model_current_baseline <- lm(recovery_2024_to_2025 ~ baseline_2024_annual, 
+                            data = predictive_dataset)
+
+# Model 3: Previous recovery performance
+model_prev_recovery <- lm(recovery_2024_to_2025 ~ recovery_2023_to_2024, 
+                         data = predictive_dataset)
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 
 model_list <- list(
   "Previous_Bleaching_Only" = model_prev_bleaching,
@@ -389,6 +452,7 @@ model_list <- list(
 if(!is.null(thermal_data)) {
   # Model 4: Current year DHW only
   model_current_dhw <- lm(recovery_2024_to_2025 ~ max_dhw_2024, 
+<<<<<<< HEAD
                           data = predictive_dataset)
   
   # Model 5: Previous year DHW only
@@ -408,6 +472,27 @@ if(!is.null(thermal_data)) {
   model_thermal_comprehensive <- lm(recovery_2024_to_2025 ~ max_dhw_2024 + max_dhw_2023 + 
                                       thermal_variability + cumulative_dhw, 
                                     data = predictive_dataset)
+=======
+                         data = predictive_dataset)
+  
+  # Model 5: Previous year DHW only
+  model_prev_dhw <- lm(recovery_2024_to_2025 ~ max_dhw_2023, 
+                      data = predictive_dataset)
+  
+  # Model 6: Combined previous bleaching + current DHW
+  model_combined <- lm(recovery_2024_to_2025 ~ baseline_2023_annual + max_dhw_2024, 
+                      data = predictive_dataset)
+  
+  # Model 7: Comprehensive model
+  model_comprehensive <- lm(recovery_2024_to_2025 ~ baseline_2023_annual + max_dhw_2024 + 
+                           thermal_variability + recovery_2023_to_2024, 
+                           data = predictive_dataset)
+  
+  # Model 8: Thermal-only comprehensive
+  model_thermal_comprehensive <- lm(recovery_2024_to_2025 ~ max_dhw_2024 + max_dhw_2023 + 
+                                   thermal_variability + cumulative_dhw, 
+                                   data = predictive_dataset)
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   
   thermal_models <- list(
     "Current_DHW_Only" = model_current_dhw,
@@ -432,6 +517,7 @@ for(model_name in names(model_list)) {
   residuals <- residuals(model)
   
   model_comparison <- rbind(model_comparison,
+<<<<<<< HEAD
                             data.frame(
                               Model = model_name,
                               R_Squared = model_summary$r.squared,
@@ -443,6 +529,19 @@ for(model_name in names(model_list)) {
                               N_Predictors = length(model$coefficients) - 1,
                               N_Observations = nobs(model)
                             ))
+=======
+                           data.frame(
+                             Model = model_name,
+                             R_Squared = model_summary$r.squared,
+                             Adj_R_Squared = model_summary$adj.r.squared,
+                             RMSE = sqrt(mean(residuals^2, na.rm = TRUE)),
+                             MAE = mean(abs(residuals), na.rm = TRUE),
+                             AIC = AIC(model),
+                             BIC = BIC(model),
+                             N_Predictors = length(model$coefficients) - 1,
+                             N_Observations = nobs(model)
+                           ))
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 }
 
 # Sort by adjusted R-squared
@@ -671,7 +770,11 @@ if(!is.null(thermal_data)) {
 # validate the effectiveness of quartile-based classifications
 
 p5 <- ggplot(predictive_dataset, aes(x = prev_bleaching_category, y = recovery_2024_to_2025, 
+<<<<<<< HEAD
                                      fill = prev_bleaching_category)) +
+=======
+                                    fill = prev_bleaching_category)) +
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   geom_jitter(width = 0.2, alpha = 0.6, size = 2) +
   stat_summary(fun = mean, geom = "point", color = "red", size = 3, shape = 18) +
@@ -695,7 +798,11 @@ cat("Saved: 04_plot_recovery_by_previous_category.png\n")
 
 if(!is.null(thermal_data)) {
   p6 <- ggplot(predictive_dataset, aes(x = dhw_2024_category, y = recovery_2024_to_2025, 
+<<<<<<< HEAD
                                        fill = dhw_2024_category)) +
+=======
+                                      fill = dhw_2024_category)) +
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
     geom_boxplot(alpha = 0.7, outlier.shape = NA) +
     geom_jitter(width = 0.2, alpha = 0.6, size = 2) +
     stat_summary(fun = mean, geom = "point", color = "red", size = 3, shape = 18) +
@@ -731,7 +838,11 @@ cat("--------------------------------------------------\n")
 
 # Define extreme responders using data-driven thresholds
 response_quartiles <- quantile(predictive_dataset$recovery_2024_to_2025, 
+<<<<<<< HEAD
                                probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+=======
+                              probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 
 extreme_responders <- predictive_dataset %>%
   mutate(
@@ -802,7 +913,11 @@ predictor_thresholds_data <- data.frame(
                 prev_bleaching_quartiles[4], prev_bleaching_quartiles[5]),
   percentile = c("25th", "50th", "75th", "100th"),
   description = c("Low previous impact threshold", "Moderate previous impact threshold",
+<<<<<<< HEAD
                   "High previous impact threshold", "Severe previous impact threshold")
+=======
+                 "High previous impact threshold", "Severe previous impact threshold")
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 )
 
 if(!is.null(thermal_data)) {
@@ -812,7 +927,11 @@ if(!is.null(thermal_data)) {
                   dhw_2024_quartiles[4], dhw_2024_quartiles[5]),
     percentile = c("25th", "50th", "75th", "100th"),
     description = c("Low current stress threshold", "Moderate current stress threshold",
+<<<<<<< HEAD
                     "High current stress threshold", "Extreme current stress threshold")
+=======
+                   "High current stress threshold", "Extreme current stress threshold")
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   )
   predictor_thresholds_data <- rbind(predictor_thresholds_data, thermal_thresholds)
 }

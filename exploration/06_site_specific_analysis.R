@@ -100,7 +100,11 @@ period1_recovery <- response_data %>% filter(period == "2023_to_2024_PBL") %>% p
 period2_recovery <- response_data %>% filter(period == "2024_to_2025_PBL") %>% pull(recovery_achieved)
 
 overall_recovery_quartiles <- quantile(c(period1_recovery, period2_recovery), 
+<<<<<<< HEAD
                                        probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+=======
+                                      probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 
 cat("Overall recovery performance quartiles (both periods combined):\n")
 print(overall_recovery_quartiles)
@@ -108,7 +112,11 @@ print(overall_recovery_quartiles)
 # Response magnitude quartiles (includes recovery and worsening)
 all_responses <- response_data$response_magnitude
 response_magnitude_quartiles <- quantile(all_responses, 
+<<<<<<< HEAD
                                          probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+=======
+                                       probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 
 cat("\nResponse magnitude quartiles (negative = recovery, positive = worsening):\n")
 print(response_magnitude_quartiles)
@@ -116,7 +124,11 @@ print(response_magnitude_quartiles)
 # Initial bleaching impact quartiles
 all_initial_bleaching <- response_data$initial_bleaching
 initial_impact_quartiles <- quantile(all_initial_bleaching, 
+<<<<<<< HEAD
                                      probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+=======
+                                   probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 
 cat("\nInitial bleaching impact quartiles:\n")
 print(initial_impact_quartiles)
@@ -277,6 +289,7 @@ comprehensive_site_analysis <- master_site_data %>%
 # Create ordered factors for consistent plotting
 factor_levels <- list(
   recovery_performance = c("No Recovery", "Minimal Recovery", "Moderate Recovery", 
+<<<<<<< HEAD
                            "Strong Recovery", "Exceptional Recovery"),
   response_consistency = c("Declining Performance", "Variable Performance", "Moderately Consistent",
                            "Highly Consistent", "Improving Performance"),
@@ -285,12 +298,26 @@ factor_levels <- list(
   impact_severity = c("Low Impact", "Moderate Impact", "High Impact", "Severe Impact"),
   temporal_variability = c("Minimal Variability", "Low Variability", 
                            "Moderate Variability", "High Variability")
+=======
+                          "Strong Recovery", "Exceptional Recovery"),
+  response_consistency = c("Declining Performance", "Variable Performance", "Moderately Consistent",
+                          "Highly Consistent", "Improving Performance"),
+  thermal_stress_level = c("Minimal Thermal Stress", "Low Thermal Stress", 
+                          "Moderate Thermal Stress", "High Thermal Stress"),
+  impact_severity = c("Low Impact", "Moderate Impact", "High Impact", "Severe Impact"),
+  temporal_variability = c("Minimal Variability", "Low Variability", 
+                          "Moderate Variability", "High Variability")
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 )
 
 for(col in names(factor_levels)) {
   if(col %in% names(comprehensive_site_analysis)) {
     comprehensive_site_analysis[[col]] <- factor(comprehensive_site_analysis[[col]], 
+<<<<<<< HEAD
                                                  levels = factor_levels[[col]])
+=======
+                                                levels = factor_levels[[col]])
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   }
 }
 
@@ -345,7 +372,11 @@ resilience_scoring <- comprehensive_site_analysis %>%
     
     # Calculate overall resilience score (0-100)
     overall_resilience_score = recovery_score + consistency_score + 
+<<<<<<< HEAD
       thermal_resistance_score + impact_resilience_score
+=======
+                              thermal_resistance_score + impact_resilience_score
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   ) %>%
   # Create resilience categories based on overall score quartiles
   mutate(
@@ -358,8 +389,13 @@ resilience_scoring <- comprehensive_site_analysis %>%
       TRUE ~ "Unclassified"
     ),
     resilience_category = factor(resilience_category,
+<<<<<<< HEAD
                                  levels = c("Very Low Resilience", "Low Resilience", 
                                             "Moderate Resilience", "High Resilience"))
+=======
+                               levels = c("Very Low Resilience", "Low Resilience", 
+                                        "Moderate Resilience", "High Resilience"))
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   )
 
 cat("Resilience scoring system implemented with 4 components:\n")
@@ -416,7 +452,11 @@ vulnerability_assessment <- resilience_scoring %>%
     
     # Calculate overall vulnerability index (0-100)
     overall_vulnerability_index = (exposure_vulnerability + sensitivity_vulnerability + 
+<<<<<<< HEAD
                                      adaptive_capacity_vulnerability) / 3
+=======
+                                 adaptive_capacity_vulnerability) / 3
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   ) %>%
   # Create vulnerability categories
   mutate(
@@ -429,8 +469,13 @@ vulnerability_assessment <- resilience_scoring %>%
       TRUE ~ "Unclassified"
     ),
     vulnerability_category = factor(vulnerability_category,
+<<<<<<< HEAD
                                     levels = c("Low Vulnerability", "Moderate Vulnerability",
                                                "High Vulnerability", "Very High Vulnerability"))
+=======
+                                  levels = c("Low Vulnerability", "Moderate Vulnerability",
+                                           "High Vulnerability", "Very High Vulnerability"))
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   )
 
 cat("Vulnerability assessment implemented with 3 components:\n")
@@ -670,9 +715,15 @@ tier_summary <- site_rankings %>%
     mean_resilience_score = round(mean(overall_resilience_score, na.rm = TRUE), 1),
     mean_vulnerability_index = round(mean(overall_vulnerability_index, na.rm = TRUE), 1),
     resilience_range = paste0(round(min(overall_resilience_score, na.rm = TRUE), 1), 
+<<<<<<< HEAD
                               " - ", round(max(overall_resilience_score, na.rm = TRUE), 1)),
     vulnerability_range = paste0(round(min(overall_vulnerability_index, na.rm = TRUE), 1),
                                  " - ", round(max(overall_vulnerability_index, na.rm = TRUE), 1)),
+=======
+                             " - ", round(max(overall_resilience_score, na.rm = TRUE), 1)),
+    vulnerability_range = paste0(round(min(overall_vulnerability_index, na.rm = TRUE), 1),
+                                " - ", round(max(overall_vulnerability_index, na.rm = TRUE), 1)),
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
     .groups = "drop"
   ) %>%
   arrange(desc(mean_resilience_score))
@@ -774,8 +825,13 @@ if(exists("bottom_performers") && nrow(bottom_performers) > 0) {
 }
 
 correlation_resilience_vulnerability <- cor(site_rankings$overall_resilience_score, 
+<<<<<<< HEAD
                                             site_rankings$overall_vulnerability_index, 
                                             use = "complete.obs")
+=======
+                                           site_rankings$overall_vulnerability_index, 
+                                           use = "complete.obs")
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 cat(sprintf("  Resilience-Vulnerability correlation: %.3f\n", correlation_resilience_vulnerability))
 
 cat("\nFiles saved:\n")

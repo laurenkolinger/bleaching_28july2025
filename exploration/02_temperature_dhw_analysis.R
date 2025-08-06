@@ -1,6 +1,11 @@
 # ============================================================================
+<<<<<<< HEAD
   # 02: Comprehensive Temperature and DHW Analysis for 2023-2024 Bleaching Events
   # ============================================================================
+=======
+# 02: Comprehensive Temperature and DHW Analysis for 2023-2024 Bleaching Events
+# ============================================================================
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 # Purpose: Analyze thermal stress patterns, temperature variability, and
 #          calculate comprehensive DHW metrics using data-driven quartile
 #          classifications. Establish thermal stress categories based on
@@ -218,7 +223,11 @@ cat("------------------------------------------------------------------------\n"
 
 # Extract all non-zero DHW values for quartile calculation
 all_dhw_values <- annual_thermal_metrics$max_dhw[!is.na(annual_thermal_metrics$max_dhw) & 
+<<<<<<< HEAD
                                                    annual_thermal_metrics$max_dhw > 0]
+=======
+                                                  annual_thermal_metrics$max_dhw > 0]
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 
 dhw_quartiles <- quantile(all_dhw_values, probs = c(0, 0.25, 0.5, 0.75, 1.0))
 cat("Maximum DHW quartiles (observed data):\n")
@@ -232,7 +241,11 @@ print(temp_var_quartiles)
 
 # Calculate cumulative DHW quartiles
 cumul_dhw_values <- annual_thermal_metrics$total_dhw_accumulation[!is.na(annual_thermal_metrics$total_dhw_accumulation) & 
+<<<<<<< HEAD
                                                                     annual_thermal_metrics$total_dhw_accumulation > 0]
+=======
+                                                                  annual_thermal_metrics$total_dhw_accumulation > 0]
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 cumul_dhw_quartiles <- quantile(cumul_dhw_values, probs = c(0, 0.25, 0.5, 0.75, 1.0))
 cat("\nCumulative DHW quartiles:\n")
 print(cumul_dhw_quartiles)
@@ -266,8 +279,13 @@ annual_thermal_metrics <- annual_thermal_metrics %>%
       TRUE ~ "Extreme Stress"
     ),
     dhw_stress_category = factor(dhw_stress_category, 
+<<<<<<< HEAD
                                  levels = c("No Stress", "Low Stress", "Moderate Stress", 
                                             "High Stress", "Extreme Stress")),
+=======
+                                levels = c("No Stress", "Low Stress", "Moderate Stress", 
+                                          "High Stress", "Extreme Stress")),
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
     
     # Temperature variability categories
     temp_var_category = case_when(
@@ -278,8 +296,13 @@ annual_thermal_metrics <- annual_thermal_metrics %>%
       TRUE ~ "Extreme Variability"
     ),
     temp_var_category = factor(temp_var_category,
+<<<<<<< HEAD
                                levels = c("Low Variability", "Moderate Variability",
                                           "High Variability", "Extreme Variability"))
+=======
+                              levels = c("Low Variability", "Moderate Variability",
+                                        "High Variability", "Extreme Variability"))
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   )
 
 # ============================================================================
@@ -471,7 +494,11 @@ cumulative_stress <- comprehensive_thermal_data %>%
 
 # Calculate cumulative stress quartiles for classification
 cumul_stress_quartiles <- quantile(cumulative_stress$total_stress_2years, 
+<<<<<<< HEAD
                                    probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+=======
+                                  probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 
 cat("Cumulative 2-year thermal stress quartiles:\n")
 print(cumul_stress_quartiles)
@@ -510,8 +537,13 @@ print(pattern_counts)
 # of coral responses than single-year metrics
 
 p5 <- ggplot(thermal_stress_patterns, aes(x = max_dhw_2023, y = max_dhw_2024, 
+<<<<<<< HEAD
                                           color = cumulative_stress_category, 
                                           size = total_stress_2years)) +
+=======
+                                         color = cumulative_stress_category, 
+                                         size = total_stress_2years)) +
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   geom_point(alpha = 0.7) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray50") +
   geom_hline(yintercept = dhw_quartiles[4], linetype = "dotted", color = "red", alpha = 0.5) +

@@ -25,6 +25,7 @@ library(ggforce)      # Extended ggplot functionality
 library(stringr)      # String manipulation
 library(RColorBrewer) # Color palettes
 library(cowplot)      # Plot themes and arrangements
+<<<<<<< HEAD
 library(ggrepel)       # Geometric shapes for ggplot
 cat("============================================================================\n")
 cat("COMPREHENSIVE VISUALIZATION ANALYSIS - ADVANCED GRAPHICAL SYNTHESIS\n")
@@ -41,6 +42,24 @@ cat("-----------------------------------------------------------------\n")
 # Rationale: Comprehensive visualization requires integration of all analysis
 # components to create meaningful visual narratives
 
+=======
+
+cat("============================================================================\n")
+cat("COMPREHENSIVE VISUALIZATION ANALYSIS - ADVANCED GRAPHICAL SYNTHESIS\n")
+cat("============================================================================\n\n")
+
+# ============================================================================
+# LOAD ALL PROCESSED DATA FROM PREVIOUS ANALYSES
+# ============================================================================
+
+cat("STEP 1: Loading comprehensive datasets from all previous analyses\n")
+cat("-----------------------------------------------------------------\n")
+
+# Load core datasets with error handling
+# Rationale: Comprehensive visualization requires integration of all analysis
+# components to create meaningful visual narratives
+
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
 required_files <- c(
   "03_combined_response_metrics.csv",
   "03_site_response_patterns.csv", 
@@ -95,11 +114,19 @@ if("combined_response_metrics" %in% names(loaded_data)) {
   
   # Recovery quartiles for consistent color mapping
   recovery_quartiles <- quantile(response_data$recovery_achieved, 
+<<<<<<< HEAD
                                  probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
   
   # Response magnitude quartiles for diverging scales
   response_quartiles <- quantile(response_data$response_magnitude, 
                                  probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+=======
+                                probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+  
+  # Response magnitude quartiles for diverging scales
+  response_quartiles <- quantile(response_data$response_magnitude, 
+                               probs = c(0, 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
   
   cat("Recovery achievement quartiles for visualization scales:\n")
   print(recovery_quartiles)
@@ -202,8 +229,13 @@ if("extent_site_means" %in% names(loaded_data)) {
         TRUE ~ "Variable"
       ),
       trajectory_pattern = factor(trajectory_pattern, 
+<<<<<<< HEAD
                                   levels = c("Strong Recovery Trend", "Moderate Recovery Trend",
                                              "Stable", "Deteriorating Trend", "Variable"))
+=======
+                                 levels = c("Strong Recovery Trend", "Moderate Recovery Trend",
+                                           "Stable", "Deteriorating Trend", "Variable"))
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
     )
   
   # Merge trajectory characteristics with temporal data
@@ -226,11 +258,19 @@ if("extent_site_means" %in% names(loaded_data)) {
   
   # Panel B: Population-level statistics with confidence bands
   p1b <- ggplot(temporal_enhanced, aes(x = timepoint_numeric, y = ext_anybleaching)) +
+<<<<<<< HEAD
     # stat_summary(fun.data = mean_cl_boot, geom = "ribbon", alpha = 0.3, fill = "steelblue") +
     stat_summary(fun = mean, geom = "line", color = "darkblue", size = 2) +
     stat_summary(fun = mean, geom = "point", color = "darkblue", size = 4) +
     # stat_summary(fun.data = function(x) data.frame(y = quantile(x, c(0.25, 0.75), na.rm = TRUE)), 
     #              geom = "ribbon", alpha = 0.2, fill = "orange") +
+=======
+    stat_summary(fun.data = mean_cl_boot, geom = "ribbon", alpha = 0.3, fill = "steelblue") +
+    stat_summary(fun = mean, geom = "line", color = "darkblue", size = 2) +
+    stat_summary(fun = mean, geom = "point", color = "darkblue", size = 4) +
+    stat_summary(fun.data = function(x) data.frame(y = quantile(x, c(0.25, 0.75), na.rm = TRUE)), 
+                 geom = "ribbon", alpha = 0.2, fill = "orange") +
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
     scale_x_continuous(breaks = 1:4, labels = c("2023\nAnnual", "2024\nPBL", "2024\nAnnual", "2025\nPBL")) +
     labs(
       title = "Population-Level Response Pattern",
@@ -260,8 +300,13 @@ if("extent_site_means" %in% names(loaded_data)) {
       subtitle = "Multi-perspective visualization of coral condition changes from 2023-2025",
       caption = "This integrated visualization reveals coral response patterns across multiple perspectives.\nPanel A shows individual site trajectories classified by data-driven pattern analysis.\nPanel B reveals population-level trends with statistical confidence intervals.\nPanel C displays the evolution of response distributions across time periods.\nTogether, these perspectives provide comprehensive insight into coral recovery dynamics.",
       theme = theme(plot.title = element_text(size = 18, face = "bold"),
+<<<<<<< HEAD
                     plot.subtitle = element_text(size = 14),
                     plot.caption = element_text(size = 11, hjust = 0))
+=======
+                   plot.subtitle = element_text(size = 14),
+                   plot.caption = element_text(size = 11, hjust = 0))
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
     )
   
   ggsave("05_plot_comprehensive_temporal_analysis.png", temporal_combined, 
@@ -295,8 +340,13 @@ if("combined_response_metrics" %in% names(loaded_data) && "site_response_pattern
         TRUE ~ "None"
       ),
       recovery_category_detailed = factor(recovery_category_detailed,
+<<<<<<< HEAD
                                           levels = c("None", "Minimal\n(0-25th %ile)", "Moderate\n(25th-50th %ile)",
                                                      "Strong\n(50th-75th %ile)", "Exceptional\n(>75th %ile)")),
+=======
+                                         levels = c("None", "Minimal\n(0-25th %ile)", "Moderate\n(25th-50th %ile)",
+                                                   "Strong\n(50th-75th %ile)", "Exceptional\n(>75th %ile)")),
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
       period_label = ifelse(period == "2023_to_2024_PBL", "2023→2024 PBL", "2024→2025 PBL")
     )
   
@@ -351,7 +401,11 @@ if("combined_response_metrics" %in% names(loaded_data) && "site_response_pattern
       )
     
     p2c <- ggplot(consistency_data, aes(x = recovery_achieved_p1, y = recovery_achieved_p2, 
+<<<<<<< HEAD
                                         color = consistency_category)) +
+=======
+                                       color = consistency_category)) +
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
       geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray50", size = 1) +
       geom_point(size = 3, alpha = 0.8) +
       geom_smooth(method = "lm", se = TRUE, color = "black", linetype = "solid", size = 1) +
@@ -386,7 +440,11 @@ if("combined_response_metrics" %in% names(loaded_data) && "site_response_pattern
     )
   
   p2d <- ggplot(efficiency_data, aes(x = initial_bleaching, y = recovery_achieved, 
+<<<<<<< HEAD
                                      color = efficiency_category, size = recovery_efficiency)) +
+=======
+                                    color = efficiency_category, size = recovery_efficiency)) +
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
     geom_point(alpha = 0.7) +
     geom_smooth(method = "lm", se = TRUE, color = "black", linetype = "dashed") +
     scale_color_viridis_d(name = "Recovery\nEfficiency") +
@@ -407,8 +465,13 @@ if("combined_response_metrics" %in% names(loaded_data) && "site_response_pattern
       subtitle = "Multi-dimensional analysis of coral recovery patterns and efficiency",
       caption = "This dashboard provides comprehensive analysis of coral recovery responses.\nPanel A compares recovery magnitude distributions between time periods using violin plots.\nPanel B shows recovery category composition using data-driven quartile classifications.\nPanel C analyzes site consistency patterns across response periods.\nPanel D examines recovery efficiency relative to initial bleaching impact.\nTogether, these analyses reveal the complexity and variability of coral recovery processes.",
       theme = theme(plot.title = element_text(size = 18, face = "bold"),
+<<<<<<< HEAD
                     plot.subtitle = element_text(size = 14),
                     plot.caption = element_text(size = 11, hjust = 0))
+=======
+                   plot.subtitle = element_text(size = 14),
+                   plot.caption = element_text(size = 11, hjust = 0))
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
     )
   
   ggsave("05_plot_recovery_response_dashboard.png", recovery_dashboard, 
@@ -495,7 +558,11 @@ if("predictive_dataset_complete" %in% names(loaded_data)) {
       fitted = c(fitted(model_prev), fitted(model_dhw)),
       residual = c(residuals(model_prev), residuals(model_dhw)),
       r_squared = rep(c(summary(model_prev)$r.squared, summary(model_dhw)$r.squared), 
+<<<<<<< HEAD
                       each = nrow(predictive_data))
+=======
+                     each = nrow(predictive_data))
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
     ) %>%
       mutate(
         predictor = paste0(predictor, "\n(R² = ", sprintf("%.3f", r_squared), ")")
@@ -550,8 +617,13 @@ if("predictive_dataset_complete" %in% names(loaded_data)) {
       subtitle = "Examining the predictive power of historical vs. current factors",
       caption = "This analysis compares different predictive approaches for coral recovery.\nPanel A examines historical bleaching impact as a predictor with thermal context.\nPanel B evaluates current thermal stress as a predictor with historical context.\nPanel C provides residual analysis for model validation and assumption checking.\nPanel D shows prediction intervals and uncertainty quantification.\nTogether, these analyses reveal the relative importance of different predictive factors.",
       theme = theme(plot.title = element_text(size = 18, face = "bold"),
+<<<<<<< HEAD
                     plot.subtitle = element_text(size = 14),
                     plot.caption = element_text(size = 11, hjust = 0))
+=======
+                   plot.subtitle = element_text(size = 14),
+                   plot.caption = element_text(size = 11, hjust = 0))
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
     )
   
   ggsave("05_plot_predictive_relationship_analysis.png", predictive_analysis, 
@@ -681,8 +753,13 @@ if("model_performance_comparison" %in% names(loaded_data)) {
       subtitle = "Multi-metric evaluation of predictive model performance",
       caption = "This comprehensive comparison evaluates models across multiple performance dimensions.\nPanel A compares explanatory power using R² metrics (higher is better).\nPanel B examines error metrics and model complexity (lower is better).\nPanel C reveals the complexity vs. performance trade-off relationship.\nPanel D provides an overall ranking combining all performance metrics.\nTogether, these analyses identify the optimal modeling approach for coral recovery prediction.",
       theme = theme(plot.title = element_text(size = 18, face = "bold"),
+<<<<<<< HEAD
                     plot.subtitle = element_text(size = 14),
                     plot.caption = element_text(size = 11, hjust = 0))
+=======
+                   plot.subtitle = element_text(size = 14),
+                   plot.caption = element_text(size = 11, hjust = 0))
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
     )
   
   ggsave("05_plot_model_performance_comparison.png", model_comparison_viz, 
@@ -727,8 +804,13 @@ if("correlation_analysis_detailed" %in% names(loaded_data)) {
       geom_text(aes(label = sprintf("%.2f", Correlation)), 
                 color = "white", fontface = "bold", size = 3) +
       scale_fill_gradient2(name = "Correlation\nCoefficient", 
+<<<<<<< HEAD
                            low = "darkblue", mid = "white", high = "darkred", 
                            midpoint = 0, limits = c(-1, 1)) +
+=======
+                          low = "darkblue", mid = "white", high = "darkred", 
+                          midpoint = 0, limits = c(-1, 1)) +
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
       labs(
         title = "Predictor-Response Correlation Matrix",
         subtitle = "Color intensity indicates correlation strength",
@@ -763,7 +845,11 @@ if("correlation_analysis_detailed" %in% names(loaded_data)) {
       arrange(desc(mean_abs_correlation))
     
     p5c <- ggplot(predictor_importance, aes(x = reorder(Predictor, mean_abs_correlation), 
+<<<<<<< HEAD
                                             y = mean_abs_correlation)) +
+=======
+                                           y = mean_abs_correlation)) +
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
       geom_col(aes(fill = n_significant), alpha = 0.8, color = "white") +
       geom_text(aes(label = sprintf("%.2f", mean_abs_correlation)), 
                 hjust = -0.1, size = 3.5, fontface = "bold") +
@@ -789,7 +875,11 @@ if("correlation_analysis_detailed" %in% names(loaded_data)) {
       )
     
     p5d <- ggplot(significance_data, aes(x = abs(Correlation), y = -log10(P_Value), 
+<<<<<<< HEAD
                                          color = significance_level, size = N_Obs)) +
+=======
+                                        color = significance_level, size = N_Obs)) +
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
       geom_point(alpha = 0.7) +
       geom_hline(yintercept = -log10(0.05), linetype = "dashed", color = "red") +
       geom_hline(yintercept = -log10(0.01), linetype = "dashed", color = "darkred") +
@@ -818,8 +908,13 @@ if("correlation_analysis_detailed" %in% names(loaded_data)) {
       subtitle = "Multi-dimensional analysis of predictor-response relationships",
       caption = "This analysis provides comprehensive examination of correlation patterns.\nPanel A shows the correlation matrix with color-coded relationship strengths.\nPanel B displays the distribution of correlation strengths across all relationships.\nPanel C ranks predictor variables by their overall importance in the network.\nPanel D provides significance analysis combining correlation strength and statistical confidence.\nTogether, these analyses reveal the structure of predictive relationships in the data.",
       theme = theme(plot.title = element_text(size = 18, face = "bold"),
+<<<<<<< HEAD
                     plot.subtitle = element_text(size = 14),
                     plot.caption = element_text(size = 11, hjust = 0))
+=======
+                   plot.subtitle = element_text(size = 14),
+                   plot.caption = element_text(size = 11, hjust = 0))
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
     )
   
   ggsave("05_plot_correlation_network_analysis.png", correlation_analysis, 
@@ -971,7 +1066,11 @@ if(length(loaded_data) >= 2) {
     geom_col(alpha = 0.8) +
     geom_text(aes(label = Records), vjust = -0.5, fontface = "bold") +
     scale_fill_manual(values = c("FALSE" = "red", "TRUE" = "darkgreen"), 
+<<<<<<< HEAD
                       name = "Data Available") +
+=======
+                     name = "Data Available") +
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
     labs(
       title = "Data Coverage Summary",
       x = "Dataset Type",
@@ -987,8 +1086,13 @@ if(length(loaded_data) >= 2) {
       subtitle = "High-level synthesis of coral bleaching response analysis",
       caption = "This executive dashboard provides key findings and data coverage summary.\nThe analysis reveals coral recovery patterns, predictive relationships, and model performance.\nData-driven quartile classifications ensure objective categorizations throughout the analysis.\nComprehensive visualization approaches provide multiple perspectives on coral resilience dynamics.",
       theme = theme(plot.title = element_text(size = 18, face = "bold"),
+<<<<<<< HEAD
                     plot.subtitle = element_text(size = 14),
                     plot.caption = element_text(size = 11, hjust = 0))
+=======
+                   plot.subtitle = element_text(size = 14),
+                   plot.caption = element_text(size = 11, hjust = 0))
+>>>>>>> f1725d6fce25375293039a1c314c3c9560b0a9a3
     )
   
   ggsave("05_plot_executive_summary_dashboard.png", executive_summary, 
