@@ -1,0 +1,127 @@
+============================================================
+CORAL BLEACHING ANALYSIS PIPELINE
+Analysis Period: 2023-2025
+Objective: Evaluate 2024 coral response prediction
+============================================================
+
+Loading datasets...
+Extent data: 987 rows
+Temperature data: 36355 rows
+
+Processing coral condition data...
+Processed 165 site-year-period combinations
+Processing temperature data...
+Processed temperature data for 66 site-year combinations
+
+Extracting key timepoints...
+Data availability by timepoint:
+  2023_Annual: 33 sites
+  2024_PBL: 33 sites
+  2024_Annual: 33 sites
+  2025_PBL: 33 sites
+
+Sites with all four timepoints: 33
+Creating comprehensive analysis dataset...
+Complete analysis dataset: 33 sites
+
+=== PREDICTIVE POWER ANALYSIS ===
+Correlations with 2024→2025 response magnitude:
+1. Temp_Instability: r = -0.330
+2. 2023_Bleaching: r = -0.179
+3. 2023_DHW: r = -0.168
+4. Cumulative_DHW: r = -0.106
+5. Max_DHW: r = -0.102
+6. 2024_DHW: r = -0.019
+
+=== SITE RESPONSE ANALYSIS ===
+Total analyzed sites: 33
+Sites showing recovery (>5% reduction): 20 (60.6%)
+Sites showing worsening (>5% increase): 2 (6.1%)
+Stable sites (±5%): 11 (33.3%)
+
+=== TOP PERFORMING SITES (HIGHEST RECOVERY) ===
+1. Great Pond
+   Recovery: 81.4% reduction (81.4% → 0.0%)
+   2023 Bleaching: 14.1%, 2024 DHW: 23.1
+
+2. Sprat Hole
+   Recovery: 64.2% reduction (64.2% → 0.0%)
+   2023 Bleaching: 33.3%, 2024 DHW: 21.3
+
+3. Magens Bay
+   Recovery: 52.4% reduction (60.6% → 8.2%)
+   2023 Bleaching: 35.8%, 2024 DHW: 22.5
+
+4. Black Point
+   Recovery: 52.2% reduction (61.3% → 9.2%)
+   2023 Bleaching: 49.3%, 2024 DHW: 21.4
+
+5. Salt River West
+   Recovery: 47.5% reduction (47.5% → 0.0%)
+   2023 Bleaching: 38.0%, 2024 DHW: 3.3
+
+6. Cane Bay
+   Recovery: 44.8% reduction (47.3% → 2.5%)
+   2023 Bleaching: 25.8%, 2024 DHW: 20.5
+
+7. Savana
+   Recovery: 42.3% reduction (42.3% → 0.0%)
+   2023 Bleaching: 23.1%, 2024 DHW: 21.4
+
+8. Seahorse Cottage Shoal
+   Recovery: 37.9% reduction (40.4% → 2.5%)
+   2023 Bleaching: 55.1%, 2024 DHW: 22.5
+
+9. Coculus Rock
+   Recovery: 37.7% reduction (65.5% → 27.8%)
+   2023 Bleaching: 80.5%, 2024 DHW: 21.9
+
+10. Eagle Ray
+   Recovery: 33.3% reduction (33.3% → 0.0%)
+   2023 Bleaching: 33.3%, 2024 DHW: 21.9
+
+=== WORST PERFORMING SITES (HIGHEST WORSENING) ===
+1. College Shoal East
+   Worsening: +8.3% increase (0.0% → 8.3%)
+   2023 Bleaching: 15.4%, 2024 DHW: 16.7
+
+2. Flat Cay
+   Worsening: +5.1% increase (38.2% → 43.3%)
+   2023 Bleaching: 67.2%, 2024 DHW: 20.2
+
+=== KEY INSIGHTS ===
+1. PREDICTIVE RELATIONSHIPS:
+   - Strongest predictor: Temp_Instability (r = -0.330)
+   - 2024 DHW correlation: -0.019
+   - 2023 Bleaching correlation: -0.179
+   - 2023 Bleaching is the stronger predictor
+
+2. THERMAL STRESS EFFECTS:
+   - Sites with high DHW (>8): 31 (93.9%)
+   - Sites with extreme DHW (>12): 31 (93.9%)
+
+3. RECOVERY PATTERNS:
+   - Exceptional recovery sites (>30% reduction): 13
+   - Strong recovery sites (>15% reduction): 19
+   - Mean 2023 bleaching extent: 30.3%
+   - Mean 2024 DHW: 20.7
+   - Mean 2024→2025 response: -21.4%
+
+=== SAVING RESULTS ===
+Saved: comprehensive_analysis_results.csv
+
+=== THERMAL STRESS ANALYSIS ===
+Extreme_Stress:
+  Sites: 31
+  Mean response: -21.2%
+  Mean recovery: 21.7%
+  Sites with recovery: 19
+Low_Stress:
+  Sites: 2
+  Mean response: -24.6%
+  Mean recovery: 24.6%
+  Sites with recovery: 1
+
+============================================================
+ANALYSIS PIPELINE COMPLETED SUCCESSFULLY
+============================================================
