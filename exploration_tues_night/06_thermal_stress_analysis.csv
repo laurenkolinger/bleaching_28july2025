@@ -1,0 +1,3 @@
+thermal_stress_level,n_sites,mean_response,mean_recovery,recovery_sites,worsening_sites
+Extreme_Stress,31,-21.2,21.7,19,2
+Low_Stress,1,-47.5,47.5,1,0

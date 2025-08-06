@@ -1,0 +1,9 @@
+Model,R_Squared,Adj_R_Squared,RMSE,MAE,AIC,BIC,N_Predictors,N_Observations
+Current_Baseline_Only,0.8257,0.8199,9.21,6.82,238.9,243.3,1,32
+Thermal_Comprehensive,0.2283,0.114,19.37,15.06,292.5,301.3,4,32
+Comprehensive_Model,0.1839,0.063,19.92,16.34,294.3,303.1,4,32
+Previous_Recovery_Only,0.0697,0.0387,21.27,17.26,292.5,296.9,1,32
+Previous_Bleaching_Only,0.0541,0.0225,21.45,17.37,293,297.4,1,32
+Combined_Bleaching_DHW,0.0697,0.0055,21.27,16.97,294.5,300.3,2,32
+Current_DHW_Only,0.021,-0.0117,21.82,18.5,294.1,298.5,1,32
+Previous_DHW_Only,0.0089,-0.0242,21.95,18.75,294.5,298.9,1,32

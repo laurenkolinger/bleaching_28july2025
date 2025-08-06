@@ -1,0 +1,5 @@
+model,r_squared,adj_r_squared,rmse
+Comprehensive,0.1747,0.0524,20.51
+2023_Bleaching_Only,0.0501,0.0184,22.01
+Combined,0.0611,-0.0037,21.88
+2024_DHW_Only,0.0154,-0.0174,22.4

@@ -1,0 +1,9 @@
+metric,threshold,percentile,category
+max_dhw_low,18.2382135416667,25th,DHW
+max_dhw_moderate,20.0569947916665,50th,DHW
+max_dhw_high,21.6920520833334,75th,DHW
+max_dhw_extreme,26.4101727941177,100th,DHW
+temp_var_low,1.1759036618565188,25th,Temperature_Variability
+temp_var_moderate,1.2352427376970025,50th,Temperature_Variability
+temp_var_high,1.4562963336047103,75th,Temperature_Variability
+temp_var_extreme,1.6561318422582616,100th,Temperature_Variability

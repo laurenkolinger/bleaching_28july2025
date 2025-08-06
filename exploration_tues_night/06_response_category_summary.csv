@@ -1,0 +1,6 @@
+recovery_category,n_sites,mean_2023_bleaching,mean_2024_dhw,mean_temp_instability,mean_vulnerability
+Exceptional_Recovery,13,36.5,20.4,2.69,0.835
+Stable,10,20,22.1,2.44,0.796
+Strong_Recovery,6,28.6,22.4,2.57,0.846
+Moderate_Worsening,2,41.3,18.4,2.48,0.792
+Moderate_Recovery,1,15,25.4,2.62,0.871

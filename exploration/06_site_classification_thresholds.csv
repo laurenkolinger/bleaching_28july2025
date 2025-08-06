@@ -1,0 +1,9 @@
+metric,threshold,percentile,category
+recovery_minimal,2.3437500000000075,25th,Recovery_Performance
+recovery_moderate,21.694444444444436,50th,Recovery_Performance
+recovery_strong,37.19229797979798,75th,Recovery_Performance
+recovery_exceptional,81.41666666666667,100th,Recovery_Performance
+impact_low,14.3125,25th,Impact_Severity
+impact_moderate,30.972222222222225,50th,Impact_Severity
+impact_high,40.729166666666664,75th,Impact_Severity
+impact_severe,81.41666666666667,100th,Impact_Severity

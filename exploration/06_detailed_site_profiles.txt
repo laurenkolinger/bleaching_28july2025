@@ -1,0 +1,112 @@
+TOP PERFORMING SITES:
+====================
+SITE: Salt River West
+Performance Tier: Tier 1: Exceptional Performance
+Overall Rank: 1 of 33
+Resilience Score: 68.9/100 (Rank #1)
+Vulnerability Index: 40.8/100 (Rank #1)
+Recovery Performance: Exceptional Recovery
+Response Consistency: Moderately Consistent
+Thermal Stress Level: Minimal Thermal Stress
+Impact Severity: NA
+Site Cluster: Unclassified
+
+
+SITE: Mutton Snapper FSA
+Performance Tier: Tier 1: Exceptional Performance
+Overall Rank: 2 of 33
+Resilience Score: 49.2/100 (Rank #8)
+Vulnerability Index: 46.3/100 (Rank #2)
+Recovery Performance: Moderate Recovery
+Response Consistency: Improving Performance
+Thermal Stress Level: Minimal Thermal Stress
+Impact Severity: NA
+Site Cluster: Unclassified
+
+
+SITE: Buck Island STX Deep
+Performance Tier: Tier 1: Exceptional Performance
+Overall Rank: 3 of 33
+Resilience Score: 46.1/100 (Rank #13)
+Vulnerability Index: 50.5/100 (Rank #3)
+Recovery Performance: Minimal Recovery
+Response Consistency: Highly Consistent
+Thermal Stress Level: Minimal Thermal Stress
+Impact Severity: NA
+Site Cluster: Unclassified
+
+
+SITE: South Water
+Performance Tier: Tier 1: Exceptional Performance
+Overall Rank: 4 of 33
+Resilience Score: 46.2/100 (Rank #12)
+Vulnerability Index: 52.6/100 (Rank #5)
+Recovery Performance: Moderate Recovery
+Response Consistency: Moderately Consistent
+Thermal Stress Level: Minimal Thermal Stress
+Impact Severity: NA
+Site Cluster: Unclassified
+
+
+SITE: Black Point
+Performance Tier: Tier 1: Exceptional Performance
+Overall Rank: 5 of 33
+Resilience Score: 62.6/100 (Rank #2)
+Vulnerability Index: 56.3/100 (Rank #16)
+Recovery Performance: Exceptional Recovery
+Response Consistency: Highly Consistent
+Thermal Stress Level: Low Thermal Stress
+Impact Severity: NA
+Site Cluster: Unclassified
+
+
+POOREST PERFORMING SITES:
+========================
+SITE: Buck Island STX
+Performance Tier: Tier 4: Poor Performance
+Overall Rank: 33 of 33
+Resilience Score: NA/100 (Rank #33)
+Vulnerability Index: NA/100 (Rank #33)
+Recovery Performance: Minimal Recovery
+Response Consistency: Declining Performance
+Thermal Stress Level: Minimal Thermal Stress
+Impact Severity: NA
+Site Cluster: Unclassified
+
+
+SITE: Lang Bank Red Hind FSA
+Performance Tier: Tier 4: Poor Performance
+Overall Rank: 32 of 33
+Resilience Score: 25.1/100 (Rank #26)
+Vulnerability Index: 60.8/100 (Rank #30)
+Recovery Performance: No Recovery
+Response Consistency: Moderately Consistent
+Thermal Stress Level: High Thermal Stress
+Impact Severity: NA
+Site Cluster: Unclassified
+
+
+SITE: Lang Bank EEMP
+Performance Tier: Tier 4: Poor Performance
+Overall Rank: 30 of 33
+Resilience Score: 29.9/100 (Rank #25)
+Vulnerability Index: 59.8/100 (Rank #29)
+Recovery Performance: Moderate Recovery
+Response Consistency: Declining Performance
+Thermal Stress Level: High Thermal Stress
+Impact Severity: NA
+Site Cluster: Unclassified
+
+
+SITE: Coral Bay
+Performance Tier: Tier 4: Poor Performance
+Overall Rank: 31 of 33
+Resilience Score: 39.3/100 (Rank #22)
+Vulnerability Index: 62/100 (Rank #32)
+Recovery Performance: Moderate Recovery
+Response Consistency: Declining Performance
+Thermal Stress Level: High Thermal Stress
+Impact Severity: NA
+Site Cluster: Unclassified
+
+

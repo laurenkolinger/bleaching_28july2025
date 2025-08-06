@@ -1,0 +1,6 @@
+recovery_performance,n_sites,mean_resilience_score,mean_vulnerability_index,mean_combined_performance
+Exceptional Recovery,9,49.7,54.7,63.1
+Strong Recovery,5,54,56.8,62
+Moderate Recovery,7,39.2,56,47.6
+No Recovery,8,25.9,55.3,43.1
+Minimal Recovery,4,31.7,54.9,36

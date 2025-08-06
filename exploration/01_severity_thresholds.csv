@@ -1,0 +1,5 @@
+category,upper_threshold,description
+minimal,0,0-25th percentile
+moderate,9.083333333333332,25th-50th percentile
+high,31.875,50th-75th percentile
+severe,81.41666666666667,75th-100th percentile

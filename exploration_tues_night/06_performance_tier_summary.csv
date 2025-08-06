@@ -1,0 +1,5 @@
+performance_tier,n_sites,mean_resilience_score,mean_vulnerability_index,resilience_range,vulnerability_range
+Tier 1: Exceptional Performance,5,54.6,49.3,46.1 - 68.9,40.8 - 56.3
+Tier 2: Good Performance,13,47,55.6,30.2 - 61.5,52.3 - 57
+Tier 4: Poor Performance,4,31.4,60.9,25.1 - 39.3,59.8 - 62
+Tier 3: Moderate Performance,11,28.7,56.6,17.3 - 48.6,53.9 - 61.2

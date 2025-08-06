@@ -1,0 +1,8 @@
+metric,threshold,percentile,description
+recovery_minimal,15,25th,Minimal recovery threshold
+recovery_moderate,28.333333333333336,50th,Moderate recovery threshold
+recovery_strong,39.41666666666667,75th,Strong recovery threshold
+recovery_exceptional,81.41666666666667,100th,Maximum recovery observed
+response_strong_recovery,-37.19229797979798,25th,Strong recovery threshold
+response_stable,2,~50th,Stability threshold (±2%)
+response_strong_worsening,-2.3437500000000075,75th,Strong worsening threshold

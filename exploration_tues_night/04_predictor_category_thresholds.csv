@@ -1,0 +1,9 @@
+predictor,threshold,percentile,description
+prev_bleaching_low,15,25th,Low previous impact threshold
+prev_bleaching_moderate,31.388888888888893,50th,Moderate previous impact threshold
+prev_bleaching_high,38.604166666666664,75th,High previous impact threshold
+prev_bleaching_severe,80.46469298245614,100th,Severe previous impact threshold
+dhw_2024_low,20.503947916666526,25th,Low current stress threshold
+dhw_2024_moderate,21.58755208333345,50th,Moderate current stress threshold
+dhw_2024_high,23.0403346354166,75th,High current stress threshold
+dhw_2024_extreme,26.4101727941177,100th,Extreme current stress threshold
